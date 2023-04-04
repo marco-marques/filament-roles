@@ -2,54 +2,42 @@
 
 namespace App\Filament\Resources;
 
-use DateTime;
+use App\Filament\Resources\PermissionResource\Pages;
+use App\Filament\Resources\PermissionResource\RelationManagers;
+use Spatie\Permission\Models\Permission;
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use Spatie\Permission\Models\Role;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\DateTimePicker;
-use App\Filament\Resources\RoleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\RoleResource\RelationManagers;
 
-class RoleResource extends Resource
+class PermissionResource extends Resource
 {
-    protected static ?string $model = Role::class;
+    protected static ?string $model = Permission::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-finger-print';
+    protected static ?string $navigationIcon = 'heroicon-o-key';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationGroup = "Settings";
+    
+    protected static ?string $label = 'Permission';
 
-    protected static ?string $label = 'Role';
-
-    protected static ?string $modelLabel = 'Role';
+    protected static ?string $modelLabel = 'Permission';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label('Nome')
-                    ->required()
-                    ->minLength(2)
-                    ->maxLength(255)
-                    ->unique(ignoreRecord:true),
-
-
-                Select::make('permissions')
-                    ->label('Permissões')
-                    ->multiple()
-                    ->relationship('permissions','name')
-                    ->preload()
-             
+                ->required()
+                ->minLength(2)
+                ->maxLength(255)
+                ->unique(ignoreRecord:true),
             ]);
     }
 
@@ -58,12 +46,12 @@ class RoleResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')
-                ->sortable(),
+                    ->sortable(),
 
                 TextColumn::make('name')
-                ->label('nome')
-                ->searchable()
-                ->sortable(),
+                    ->label('Nome')
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make('created_at')
                     ->label('Criado em')
@@ -72,7 +60,6 @@ class RoleResource extends Resource
                 TextColumn::make('updated_at')
                     ->label('Alterado em')
                     ->dateTime('d/m/y H:i')    
-                
             ])
             ->filters([
                 //
@@ -89,7 +76,7 @@ class RoleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageRoles::route('/'),
+            'index' => Pages\ManagePermissions::route('/'),
         ];
     }    
 }
