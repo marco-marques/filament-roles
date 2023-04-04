@@ -9,6 +9,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -52,6 +53,18 @@ class UserResource extends Resource
                     ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create')
                     ->maxLength(255),
+
+                    Select::make('roles')
+                    ->label('Perfil')
+                    ->multiple()
+                    ->relationship('roles','name')
+                    ->preload(),
+                    
+                    Select::make('permissions')
+                    ->label('Permissões')
+                    ->multiple()
+                    ->relationship('permissions','name')
+                    ->preload()
             ]);
     }
 
