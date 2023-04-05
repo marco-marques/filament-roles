@@ -13,12 +13,7 @@ class ManageRoles extends ManageRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make()
-                ->successNotificationTitle('Role criado!'),
-            
-            Actions\EditAction::make()
-                ->successNotificationTitle('Role alterado.'),
-                
+            Actions\CreateAction::make(),    
         ];
     }
 }

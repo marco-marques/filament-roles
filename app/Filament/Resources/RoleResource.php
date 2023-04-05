@@ -4,11 +4,11 @@ namespace App\Filament\Resources;
 
 use DateTime;
 use Filament\Forms;
+use App\Models\Role;
 use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
-use Spatie\Permission\Models\Role;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;

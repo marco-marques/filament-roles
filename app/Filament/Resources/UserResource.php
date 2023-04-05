@@ -76,6 +76,9 @@ class UserResource extends Resource
                     ->label('Nome')
                     ->sortable()
                     ->searchable(),
+                
+                Tables\Columns\TextColumn::make('user.role')
+                    ->label('Perdfil'),    
 
                 Tables\Columns\TextColumn::make('email')
                     ->label('E-mail')
